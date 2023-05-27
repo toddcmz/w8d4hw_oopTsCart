@@ -55,21 +55,13 @@ export default class User{
             this.removeFromCart(thisItem)
         }else{
             let countRemoved:number = 0
-            const tempCart:Item[] = []
-            for(let ele of this.cart){
-                if (ele.itemName !== thisItem.itemName || countRemoved === quantity){
-                    tempCart.push(ele)
-                }else{
-                    // if we're here in the if chain then the name should equal the target
-                    // and we should not have removed the target quantity yet, skip this item.
-                    // and increment count removed (it's removed by not adding it to the)
-                    // temp cart, which will become the new cart when we're done.
-                    countRemoved += 1
-                } // end if - checking if we add the item to the new car
-            }// end for - for each item in the old cart
-            // reassign the temp cart as that users cart, which should now have the correct
-            // number of htings removed
-            this.cart = tempCart
+            //const tempCart:Item[] = []
+            for(let [i,ele] of this.cart.entries()){
+                if (ele.itemName === thisItem.itemName && countRemoved !== quantity){
+                    this.cart.splice(i,1)
+                    countRemoved +=1
+                } // end if
+            }// end for - for each item in the cart
         }// end handling removal if chain entirely
     }// end removeQuantityFromCart
 
